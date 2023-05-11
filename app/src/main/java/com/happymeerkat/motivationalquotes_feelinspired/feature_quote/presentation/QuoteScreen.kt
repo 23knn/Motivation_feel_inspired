@@ -1,21 +1,21 @@
 package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import com.happymeerkat.motivationalquotes_feelinspired.R
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun QuoteScreen(viewModel: QuoteScreenViewModel, modifier: Modifier = Modifier) {
-    var quote = ""
+fun QuoteScreen(
+    viewModel: QuoteScreenViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier
+){
+    var state = viewModel.quoteUIState.value
 
     Column(
         modifier = modifier
     ) {
-        Texct
+        Text(text = state.currentQuote.content)
     }
 }

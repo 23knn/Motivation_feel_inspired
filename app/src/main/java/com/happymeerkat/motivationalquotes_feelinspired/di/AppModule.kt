@@ -7,6 +7,7 @@ import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.repository.OnlineQuoteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.QuoteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetAllQuotes
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetNewQuote
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.QuotesUseCases
 import dagger.Module
 import dagger.Provides
@@ -41,9 +42,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUseCases(offlineQuoteRepository: OfflineQuoteRepository): QuotesUseCases {
+    fun provideUseCases(offlineQuoteRepository: QuoteRepository): QuotesUseCases {
         return QuotesUseCases(
-            getAllQuotes = GetAllQuotes(quoteRepository = offlineQuoteRepository)
+            getAllQuotes = GetAllQuotes(quoteRepository = offlineQuoteRepository),
+            getNewQuote = GetNewQuote()
         )
     }
 }
