@@ -9,4 +9,8 @@ class OfflineQuoteRepository (private val quoteDao: QuoteDao): QuoteRepository {
     override fun getAllQuotes(): Flow<List<Quote>> {
         return quoteDao.getAllQuotes()
     }
+
+    override suspend fun insertQuote(quote:Quote) {
+        quoteDao.insertQuote(quote)
+    }
 }

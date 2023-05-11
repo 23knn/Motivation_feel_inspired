@@ -4,5 +4,5 @@ import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.mod
 
 data class QuotesState(
     val quotes: List<Quote> = emptyList(),
-    val currentQuote: Quote = Quote()
+    val currentQuote: Quote = Quote(1, "a quote")
 )

@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.QuoteScreen
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.TestScreenAllQuotes
 import com.happymeerkat.motivationalquotes_feelinspired.ui.theme.MotivationFeelInspiredTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,8 @@ class MainActivity : ComponentActivity() {
             MotivationFeelInspiredTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    QuoteScreen()
+                    TestScreenAllQuotes()
+                    // QuoteScreen()
                 }
             }
         }

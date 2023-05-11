@@ -6,7 +6,7 @@ import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.mod
 
 @Database(
     entities = [Quote::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class QuoteDatabase: RoomDatabase() {

@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Quote(
-    @PrimaryKey
-    val id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     val content: String = "default quote"
 )

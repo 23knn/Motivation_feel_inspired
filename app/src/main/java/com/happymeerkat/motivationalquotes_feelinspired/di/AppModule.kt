@@ -7,6 +7,7 @@ import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.data_source.QuoteService
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.repository.OnlineQuoteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.QuoteRepository
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.DownloadQuotes
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetAllQuotes
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetNewQuote
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.QuotesUseCases
@@ -44,14 +45,15 @@ object AppModule {
         return Room.databaseBuilder(
             app,
             QuoteDatabase::class.java,
-            QuoteDatabase.DATABASE_NAME
-        ).build()
+            QuoteDatabase.DATABASE_NAME,
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
     @Singleton
-    fun provideOnlineQuotesRepository(quoteService: QuoteService): OnlineQuoteRepository {
-        return OnlineQuoteRepository(quoteService)
+    fun provideOnlineQuotesRepository(quoteService: QuoteService, db: QuoteDatabase): OnlineQuoteRepository {
+        return OnlineQuoteRepository(quoteService, db.getQuoteDao())
     }
 
     @Provides
@@ -62,10 +64,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUseCases(offlineQuoteRepository: QuoteRepository): QuotesUseCases {
+    fun provideUseCases(offlineQuoteRepository: QuoteRepository, onlineQuoteRepository: OnlineQuoteRepository): QuotesUseCases {
         return QuotesUseCases(
             getAllQuotes = GetAllQuotes(quoteRepository = offlineQuoteRepository),
-            getNewQuote = GetNewQuote()
+            getNewQuote = GetNewQuote(),
+            downloadQuotes = DownloadQuotes(onlineQuoteRepository = onlineQuoteRepository)
         )
     }
 }
