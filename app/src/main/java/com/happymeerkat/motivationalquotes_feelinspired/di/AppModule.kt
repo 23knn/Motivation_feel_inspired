@@ -4,20 +4,40 @@ import android.app.Application
 import androidx.room.Room
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local_data.data_source.QuoteDatabase
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local_data.repository.OfflineQuoteRepository
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.data_source.QuoteService
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.repository.OnlineQuoteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.QuoteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetAllQuotes
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetNewQuote
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.QuotesUseCases
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideQuoteService(app: Application): QuoteService {
+        val baseUrl = "https://google.com"
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
+
+        val retrofitService: QuoteService by lazy {retrofit.create(QuoteService::class.java)}
+
+        return retrofitService
+    }
+
     @Provides
     @Singleton
     fun provideQuoteDatabase(app: Application): QuoteDatabase {
@@ -30,8 +50,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOnlineQuotesRepository(db: QuoteDatabase): OnlineQuoteRepository {
-        return OnlineQuoteRepository()
+    fun provideOnlineQuotesRepository(quoteService: QuoteService): OnlineQuoteRepository {
+        return OnlineQuoteRepository(quoteService)
     }
 
     @Provides
