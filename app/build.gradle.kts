@@ -76,6 +76,13 @@ dependencies {
     // DAGGER HILT
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    // ViewModel utilities for Compose
+    val lifecycle_version = "2.6.1"
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation ("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    implementation ("io.coil-kt:coil-compose:2.2.2")
 }
 
 // Allow references to generated code
