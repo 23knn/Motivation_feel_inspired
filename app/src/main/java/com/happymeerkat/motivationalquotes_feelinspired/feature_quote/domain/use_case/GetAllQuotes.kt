@@ -2,5 +2,5 @@ package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.us
 
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.QuoteRepository
 
-class GetAllQuotes(quoteRepository: QuoteRepository) {
+class GetAllQuotes(val quoteRepository: QuoteRepository) {
 }
