@@ -8,8 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.model.Quote
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.QuotesUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -18,6 +21,7 @@ class QuoteScreenViewModel @Inject constructor(private val quotesUseCases: Quote
     private val _quoteUIState = mutableStateOf(QuotesState())
     val quoteUIState: State<QuotesState> = _quoteUIState
 
+    private var getQuotesJob: Job? = null
     init {
         downloadQuotes()
         getQuotes()
@@ -44,15 +48,15 @@ class QuoteScreenViewModel @Inject constructor(private val quotesUseCases: Quote
         viewModelScope.launch {
             quotesUseCases.downloadQuotes()
             getQuotes()
-            _quoteUIState.value.quotes.forEach {quote -> Log.d("QUOTE", quote.content) }
         }
     }
     fun getQuotes() {
-        viewModelScope.launch {
-            quotesUseCases.getAllQuotes()
-                .onEach { quotesList: List<Quote> ->
-                    _quoteUIState.value = quoteUIState.value.copy(quotes = quotesList)
-                }
-        }
+        getQuotesJob?.cancel()
+        getQuotesJob = quotesUseCases.getAllQuotes()
+            .onEach { quotesList ->
+                _quoteUIState.value = quoteUIState.value.copy(quotes = quotesList)
+            }
+            .launchIn(viewModelScope)
+
     }
 }

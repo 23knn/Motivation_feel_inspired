@@ -7,16 +7,19 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun TestScreenAllQuotes(viewModel: QuoteScreenViewModel = hiltViewModel()) {
-    val quotes = viewModel.quoteUIState.value.quotes
+    val state = viewModel.quoteUIState.value
+
     Column {
         Button(onClick = { viewModel.onEvent(event = QuoteEvent.DownloadQuotes) }) {
             Text("Download Quotes")
         }
+        Text(state.quotes.size.toString())
         LazyColumn {
-            items(quotes) {quote ->
+            items(state.quotes) {quote ->
                 Text(quote.content)
             }
         }
