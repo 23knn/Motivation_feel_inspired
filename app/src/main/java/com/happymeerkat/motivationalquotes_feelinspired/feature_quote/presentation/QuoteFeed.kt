@@ -11,7 +11,7 @@ import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.mod
 
 @Composable
 fun QuoteFeed(quotes: List<Quote>, modifier:Modifier = Modifier) {
-    LazyColumn(modifier = modifier.padding(top = 50.dp)) {
+    LazyColumn(modifier = modifier) {
         items(quotes) {quote ->
             QuoteItem(
                 quote = quote.content,

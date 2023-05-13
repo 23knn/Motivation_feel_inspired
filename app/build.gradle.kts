@@ -87,6 +87,9 @@ dependencies {
     implementation ("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
     implementation ("io.coil-kt:coil-compose:2.3.0")
+
+    val nav_version = "2.5.3"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }
 
 // Allow references to generated code
