@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp") version("1.8.0-1.0.8")
-    kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    kotlin("kapt")
 }
 
 android {
