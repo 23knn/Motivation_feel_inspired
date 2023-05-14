@@ -1,4 +1,4 @@
-package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation
+package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.quotes_main.feed.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

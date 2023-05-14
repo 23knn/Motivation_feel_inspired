@@ -16,14 +16,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.QuoteAppBar
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.QuoteBottomBar
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.QuoteScreen
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.Settings.Settings
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.quotes_main.Home
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.util.QuoteAppBar
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.util.QuoteBottomBar
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.quotes_main.feed.screens.QuoteScreen
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.settings.Settings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
+fun AppScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
@@ -38,7 +39,7 @@ fun HomeScreen(
     )
 
     Scaffold(
-        topBar = { QuoteAppBar()},
+        topBar = { QuoteAppBar() },
         bottomBar = {
                 QuoteBottomBar(
                     navController = navController,
@@ -53,9 +54,7 @@ fun HomeScreen(
             modifier = Modifier.padding(contentPadding)
         ){
             composable(BottomNavigationScreens.Home.route) {
-                QuoteScreen(
-                    modifier = modifier.padding(contentPadding)
-                )
+                Home()
             }
 
             composable(BottomNavigationScreens.Settings.route) {

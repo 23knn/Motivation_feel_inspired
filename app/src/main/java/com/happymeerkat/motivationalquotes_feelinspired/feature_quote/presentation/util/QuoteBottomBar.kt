@@ -1,4 +1,4 @@
-package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation
+package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.util
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build

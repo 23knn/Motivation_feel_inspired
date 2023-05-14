@@ -4,4 +4,7 @@
     <string name="home">home</string>
     <string name="settings">settings</string>
     <string name="favorites">favorites</string>
+    <string name="QuotesTab">Quotes</string>
+    <string name="FavoritesTab">Favorites</string>
+    <string name="CategoriesTab">Categories</string>
 </resources>

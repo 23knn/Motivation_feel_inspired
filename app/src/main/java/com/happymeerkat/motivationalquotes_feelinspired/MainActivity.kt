@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MotivationFeelInspiredTheme {
-                HomeScreen(modifier = Modifier.fillMaxSize().padding(top = 100.dp))
+                AppScreen(modifier = Modifier.fillMaxSize().padding(top = 100.dp))
             }
         }
     }
