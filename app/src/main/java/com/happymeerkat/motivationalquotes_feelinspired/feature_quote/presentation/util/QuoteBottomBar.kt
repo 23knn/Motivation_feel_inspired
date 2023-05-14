@@ -26,7 +26,7 @@ fun QuoteBottomBar(
                     }
                 },
                 label = { Text(screen.route) },
-                icon = { Icon( Icons.Filled.Build, contentDescription = null ) }
+                icon = { Icon( screen.icon, contentDescription = null ) }
             )
         }
     }

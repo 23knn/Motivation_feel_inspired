@@ -1,6 +1,7 @@
 package com.happymeerkat.motivationalquotes_feelinspired
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -54,7 +55,7 @@ fun AppScreen(
             modifier = Modifier.padding(contentPadding)
         ){
             composable(BottomNavigationScreens.Home.route) {
-                Home()
+                Home(modifier = Modifier.fillMaxWidth())
             }
 
             composable(BottomNavigationScreens.Settings.route) {
