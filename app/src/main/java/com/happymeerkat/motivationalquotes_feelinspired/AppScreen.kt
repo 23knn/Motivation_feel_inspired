@@ -17,10 +17,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.quotes_main.Home
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.home.home_container.Home
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.util.QuoteAppBar
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.util.QuoteBottomBar
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.quotes_main.feed.screens.QuoteScreen
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.settings.Settings
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,6 +68,6 @@ fun AppScreen(
 }
 
 sealed class BottomNavigationScreens(val route: String, @StringRes val resourceId: Int, val icon: ImageVector) {
-    object Home : BottomNavigationScreens("home", R.string.home, Icons.Filled.Home)
-    object Settings : BottomNavigationScreens("settings", R.string.settings, Icons.Filled.Settings)
+    object Home : BottomNavigationScreens("Home", R.string.home, Icons.Filled.Home)
+    object Settings : BottomNavigationScreens("Settings", R.string.settings, Icons.Filled.Settings)
 }

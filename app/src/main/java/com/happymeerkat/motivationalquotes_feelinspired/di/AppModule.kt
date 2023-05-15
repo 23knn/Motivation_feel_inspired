@@ -2,15 +2,18 @@ package com.happymeerkat.motivationalquotes_feelinspired.di
 
 import android.app.Application
 import androidx.room.Room
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local_data.data_source.QuoteDatabase
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local_data.data_source.quotes.QuoteDatabase
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local_data.repository.OfflineFavoriteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.local_data.repository.OfflineQuoteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.data_source.QuoteService
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.repository.OnlineQuoteRepository
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.FavoriteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.QuoteRepository
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.DownloadQuotes
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetAllQuotes
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.GetNewQuote
-import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.QuotesUseCases
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.DownloadQuotes
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.FavoriteQuote
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.GetAllQuotes
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.GetNewQuote
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.QuotesUseCases
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -64,11 +67,22 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUseCases(offlineQuoteRepository: QuoteRepository, onlineQuoteRepository: OnlineQuoteRepository): QuotesUseCases {
+    fun provideOfflineFavoriteRepository(db: QuoteDatabase): FavoriteRepository {
+        return OfflineFavoriteRepository(db.getFavoriteDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideUseCases(
+        offlineQuoteRepository: QuoteRepository,
+        onlineQuoteRepository: OnlineQuoteRepository,
+        faveRepository:FavoriteRepository
+    ): QuotesUseCases {
         return QuotesUseCases(
             getAllQuotes = GetAllQuotes(quoteRepository = offlineQuoteRepository),
             getNewQuote = GetNewQuote(),
-            downloadQuotes = DownloadQuotes(onlineQuoteRepository = onlineQuoteRepository)
+            downloadQuotes = DownloadQuotes(onlineQuoteRepository = onlineQuoteRepository),
+            favoriteQuote = FavoriteQuote(faveRepository = faveRepository)
         )
     }
 }
