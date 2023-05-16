@@ -2,5 +2,6 @@ package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.us
 
 data class FavoritesUseCases(
     val getAllFavorites: GetAllFavorites,
-    val removeFavorite: RemoveFavorite
+    val insertFavorite: InsertFavorite,
+    val deleteFavorite: DeleteFavorite
 )

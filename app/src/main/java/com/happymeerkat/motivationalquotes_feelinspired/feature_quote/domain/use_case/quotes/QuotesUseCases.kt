@@ -3,6 +3,5 @@ package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.us
 data class QuotesUseCases(
     val getAllQuotes: GetAllQuotes,
     val getNewQuote: GetNewQuote,
-    val downloadQuotes: DownloadQuotes,
-    val favoriteQuote: FavoriteQuote
+    val downloadQuotes: DownloadQuotes
 )

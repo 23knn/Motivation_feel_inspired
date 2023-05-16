@@ -3,28 +3,25 @@ package com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentat
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.model.Favorite
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.model.Quote
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.favorites.GetAllFavorites
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentation.home.util.QuoteState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoritesViewModel @Inject constructor(private val getAllFavorites: GetAllFavorites): ViewModel() {
-    private var getFavoritesJob: Job? = null
-    private val _favoriteUIState = mutableStateOf(FavoritesScreenUIState())
-    val favoriteUIState = _favoriteUIState
-    init {
-        getAllFavorites()
-    }
-    private fun getFavorites() {
-        getFavoritesJob?.cancel()
-        getFavoritesJob = getAllFavorites()
-            .onEach { favoritesList ->
-                _favoriteUIState.value = favoriteUIState.value.copy(favorites = favoritesList)
-            }
-            .launchIn(viewModelScope)
-    }
+class FavoritesViewModel @Inject constructor(): ViewModel() {
+
+
+
+
+
 
 }

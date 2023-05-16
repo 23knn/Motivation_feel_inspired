@@ -12,11 +12,10 @@ import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.presentati
 @Composable
 fun QuoteScreen(
     modifier: Modifier = Modifier,
-    viewModel: QuoteScreenViewModel = hiltViewModel()
+    viewModel: QuoteScreenViewModel = hiltViewModel(),
 ){
     val state = viewModel.quoteUIState.collectAsState().value
     QuoteFeed(
-        quotes = state.quotes,
-        faveUnfave = { quoteId -> viewModel.onEvent(FavoriteQuoteEvent(quoteId)) }
+        quotes = state.quotes
     )
 }

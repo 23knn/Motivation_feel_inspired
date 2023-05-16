@@ -9,6 +9,10 @@ import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.onlin
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.data.online_data.repository.OnlineQuoteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.FavoriteRepository
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.repository.QuoteRepository
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.favorites.DeleteFavorite
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.favorites.FavoritesUseCases
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.favorites.GetAllFavorites
+import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.favorites.InsertFavorite
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.DownloadQuotes
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.FavoriteQuote
 import com.happymeerkat.motivationalquotes_feelinspired.feature_quote.domain.use_case.quotes.GetAllQuotes
@@ -73,16 +77,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUseCases(
+    fun provideQuoteUseCases(
         offlineQuoteRepository: QuoteRepository,
         onlineQuoteRepository: OnlineQuoteRepository,
-        faveRepository:FavoriteRepository
     ): QuotesUseCases {
         return QuotesUseCases(
             getAllQuotes = GetAllQuotes(quoteRepository = offlineQuoteRepository),
             getNewQuote = GetNewQuote(),
-            downloadQuotes = DownloadQuotes(onlineQuoteRepository = onlineQuoteRepository),
-            favoriteQuote = FavoriteQuote(faveRepository = faveRepository)
+            downloadQuotes = DownloadQuotes(onlineQuoteRepository = onlineQuoteRepository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteUseCases(
+        favoriteRepository:FavoriteRepository
+    ): FavoritesUseCases {
+        return FavoritesUseCases(
+            getAllFavorites = GetAllFavorites(favoriteRepository),
+            insertFavorite = InsertFavorite(favoriteRepository),
+            deleteFavorite = DeleteFavorite(favoriteRepository)
         )
     }
 }
